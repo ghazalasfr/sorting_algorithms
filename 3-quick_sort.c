@@ -5,73 +5,73 @@
   * @array: ...
   * @size: ...
   *
-  * Return: None!
+  * Return: Nothing!
   */
 void quick_sort(int *array, size_t size)
 {
 	if (!array || size < 2)
 		return;
 
-	quick_rec(array, 0, size - 1, size);
+	quick_sort_rec(array, 0, size - 1, size);
 }
 
 /**
-  * quick_rec - ...
+  * quick_sort_rec - ...
   * @array: ...
-  * @l: ...
-  * @h: ...
+  * @lower: ...
+  * @higher: ...
   * @size: ...
   *
   * Return: Nothing!
   */
-void quick_rec(int *array, int l, int h, size_t size)
+void quick_sort_rec(int *array, int lower, int higher, size_t size)
 {
 	int k = 0;
 
-	if (l < h)
+	if (lower < higher)
 	{
-		k = partition(array, l, h, size);
-		quick_rec(array, l, k - 1, size);
-		quick_rec(array, k + 1, h, size);
+		k = partition(array, lower, higher, size);
+		quick_sort_rec(array, lower, k - 1, size);
+		quick_sort_rec(array, k + 1, higher, size);
 	}
 }
 
 /**
   * partition - ...
   * @array: ...
-  * @l: ...
-  * @h: ...
+  * @lower: ...
+  * @higher: ...
   * @size: ...
   *
   * Return: Nothing!
   */
-int partition(int *array, int l, int h, size_t size)
+int partition(int *array, int lower, int higher, size_t size)
 {
-	int i = 0, j = 0, p = 0, z = 0;
+	int i = 0, j = 0, p = 0, a = 0;
 
-	p = array[h];
-	i = l;
+	p = array[higher];
+	i = lower;
 
-	for (j = l; j < h; ++j)
+	for (j = lower; j < higher; ++j)
 	{
 		if (array[j] < p)
 		{
-			z = array[i];
+			a = array[i];
 			array[i] = array[j];
-			array[j] = z;
+			array[j] = a;
 
-			if (z != array[i])
+			if (a != array[i])
 				print_array(array, size);
 
 			++i;
 		}
 	}
 
-	z = array[i];
-	array[i] = array[h];
-	array[h] = z;
+	a = array[i];
+	array[i] = array[higher];
+	array[higher] = a;
 
-	if (z != array[i])
+	if (a != array[i])
 		print_array(array, size);
 
 	return (i);
